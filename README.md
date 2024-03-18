@@ -1,1 +1,0 @@
-# szereljunk_apa
