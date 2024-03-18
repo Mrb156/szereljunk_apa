@@ -16,7 +16,7 @@ AsyncWebServer server(80);
 Servo servo;
 
 int direction = 2;
-int speed = 100;
+int speed = 175;
 String steer = "straight";
 String cur_steer = "straight";
 
