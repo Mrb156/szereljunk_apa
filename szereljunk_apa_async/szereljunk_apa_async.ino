@@ -9,6 +9,22 @@
 const char *ssid = "NodeServer";
 const char *password = "";
 AsyncWebServer server(80);
+
+
+int Do = 261;
+int Re = 293;
+int Mi = 329;
+int Fa = 349;
+int Sol = 391;
+int La = 440;
+int Si = 493;
+int DoS = 277;
+int ReS = 311;
+
+int t1= 320;
+int t2= 160;
+int t3= 80;
+
 #define BUZZER_PIN D1
 #define DC_PIN1 D6
 #define DC_PIN2 D5
@@ -19,6 +35,43 @@ int direction = 2;
 int speed = 175;
 String steer = "straight";
 String cur_steer = "straight";
+
+void la_cucaracha() {
+  tone (BUZZER_PIN, Do, t2);
+  delay  (t3);
+  tone (BUZZER_PIN, Do, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Do, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Fa, t2);
+  delay (t1);
+  tone (BUZZER_PIN, La, t1);
+  delay (t1);
+  tone (BUZZER_PIN, Do, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Do, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Do, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Fa, t2);
+  delay (t1);
+  tone (BUZZER_PIN, La, t1);
+  delay (t1);
+  tone (BUZZER_PIN, Fa, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Fa, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Mi, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Mi, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Re, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Re, t2);
+  delay (t3);
+  tone (BUZZER_PIN, Do, t2);
+  //delay (t1);
+}
 
 void init_components() {
   tone(BUZZER_PIN, 1000, 500);
@@ -81,7 +134,7 @@ void stop() {
 }
 void horn() {
   Serial.println("horn");
-  tone(BUZZER_PIN, 1000, 100);
+  la_cucaracha();
 }
 
 String fhtml;
