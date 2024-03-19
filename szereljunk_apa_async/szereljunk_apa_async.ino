@@ -14,6 +14,16 @@ AsyncWebServer server(80);
 int Do = 261;
 int Re = 293;
 int Mi = 329;
+int Fa = 349;
+int Sol = 391;
+int La = 440;
+int Si = 493;
+int DoS = 277;
+int ReS = 311;
+
+int t1= 160;
+int t2= 80;
+int t3= 50;
 
 #define BUZZER_PIN D1
 #define DC_PIN1 D6
@@ -27,18 +37,96 @@ String steer = "straight";
 String cur_steer = "straight";
 
 void la_cucaracha() {
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Fa);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t1);
+  tone (BUZZER_PIN, La);
+  delay (t1);
+  noTone (BUZZER_PIN);
+  delay (t1);
+  
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Do);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Fa);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t1);
+  tone (BUZZER_PIN, La);
+  delay (t1);
+  noTone (BUZZER_PIN);
+  delay (t1);
+  
+  tone (BUZZER_PIN, Fa);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Fa);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Mi);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Mi);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Re);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Re);
+  delay (t2);
+  noTone (BUZZER_PIN);
+  delay (t3);
+  tone (BUZZER_PIN, Do);
+  delay (t1);
+  noTone (BUZZER_PIN);
+  delay (t1);
+}
+
+void horn_sound(){
   tone(BUZZER_PIN, Do, 1000);
   tone(BUZZER_PIN, Re, 1000);
   tone(BUZZER_PIN, Mi, 1000);
 }
 
 void init_components() {
-  tone(BUZZER_PIN, 1000, 500);
+  la_cucaracha();
   digitalWrite(DC_PIN1, LOW);
   digitalWrite(DC_PIN2, HIGH);
   delay(100);
   digitalWrite(DC_PIN1, LOW);
   digitalWrite(DC_PIN2, LOW);
+  turn(1);
+  delay(100);
+  turn(180);
+  delay(100);
+  turn(90);
 }
 void go_forward() {
   digitalWrite(DC_PIN1, LOW);
@@ -62,15 +150,18 @@ void turn(int degree) {
 void forward() {
   Serial.println("Forward");
   direction = 1;
+  tone(BUZZER_PIN, Mi, 100);
 }
 
 void backward() {
   Serial.println("Backward");
   direction = 0;
+  tone(BUZZER_PIN, Do, 100);
 }
 
 void left() {
   Serial.println("Left");
+  tone(BUZZER_PIN, Re, 100);
   if (steer == "right") {
     steer = "straight";
   } else {
@@ -80,6 +171,7 @@ void left() {
 
 void right() {
   Serial.println("Right");
+  tone(BUZZER_PIN, Fa, 100);
   if (steer == "left") {
     steer = "straight";
   } else {
@@ -90,10 +182,11 @@ void right() {
 void stop() {
   Serial.println("stop");
   direction = 2;
+  tone(BUZZER_PIN, La, 100);
 }
 void horn() {
   Serial.println("horn");
-  la_cucaracha();
+  horn_sound();
 }
 
 String fhtml;
@@ -106,8 +199,6 @@ void setup() {
   pinMode(DC_PIN1, OUTPUT);
   pinMode(DC_PIN2, OUTPUT);
   servo.attach(SERVO_PIN);
-  servo.write(90);
-
 
   // Connect to WiFi network
   Serial.println();
