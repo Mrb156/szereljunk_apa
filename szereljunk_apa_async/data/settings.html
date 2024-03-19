@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beállítások
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a202f;
+        }
+
+        .container {
+            max-width: 80%;
+            margin: 2% auto;
+            padding: 2%;
+            background-color: #060f22;
+            border-radius: 5vw;
+            box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 6vw;
+        }
+
+        label {
+            display: inline-block;
+            font-size: 3vw;
+            color: #fff;
+            margin-right: 10% ;
+        }
+
+        select {
+            width: calc(100% - 50%);
+            padding: 1%;
+            border-radius: 1vw;
+        }
+
+        .submit {
+            padding: 2vw 4vw;
+            background-color: #906e00;
+            color: #fff;
+            border: none;
+            border-radius: 1vw;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out;
+            font-size: 3vw;
+        }
+
+        .submit:active {
+            transform: scale(0.95);
+        }
+
+        .back-button::before {
+            content: "←";
+        }
+        input[type="color"]{
+            height: 10vw;
+            width: 20vw;
+            border-radius: 1vw;
+            
+        }
+        .ColorLabel{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .saveButton{
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            margin-top: 10vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <button class="submit" onclick="openHome()">Vissza</button>
+        <h1>Beállítások</h1>
+        <div class="ColorLabel">
+            <label for="colorPicker">Téma választás:</label>
+            <input type="color" id="colorPicker">
+        </div>
+        <div class="saveButton">
+            <button class="submit" onclick="saveColor()">Mentés</button>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            var color = localStorage.getItem('backgroundColor');
+            if (color) {
+                document.body.style.backgroundColor = color;
+                document.getElementById('colorPicker').value = color;
+                var colorRgb = hexToRgb(color);
+
+                // Make the color darker
+                var darkerColorRgb = colorRgb.map(value => Math.max(value - 20, 0));
+
+                // Convert the color back to HEX
+                var darkerColorHex = rgbToHex(...darkerColorRgb);
+
+                document.getElementById('container').style.backgroundColor = darkerColorHex;
+            }
+        }
+        function saveColor() {
+            var color = document.getElementById('colorPicker').value;
+            localStorage.setItem('backgroundColor', color);
+            document.getElementById('colorPicker').value = color;
+            document.body.style.backgroundColor = color;
+            var colorRgb = hexToRgb(color);
+
+            // Make the color darker
+            var darkerColorRgb = colorRgb.map(value => Math.max(value - 20, 0));
+
+            // Convert the color back to HEX
+            var darkerColorHex = rgbToHex(...darkerColorRgb);
+
+            document.getElementById('container').style.backgroundColor = darkerColorHex;
+
+        }
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? [
+                parseInt(result[1], 16),
+                parseInt(result[2], 16),
+                parseInt(result[3], 16)
+            ] : null;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+        function openHome() {
+            window.open('/index.html', '_self');
+        }
+
+    </script>
+</body>
+
+
+
+</html>
