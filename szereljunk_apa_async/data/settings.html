@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beállítások
-    </title>
+    <title>Beállítások</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,7 +33,7 @@
             display: inline-block;
             font-size: 3vw;
             color: #fff;
-            margin-right: 10% ;
+            margin-right: 10%;
         }
 
         select {
@@ -60,18 +60,21 @@
         .back-button::before {
             content: "←";
         }
-        input[type="color"]{
+
+        input[type="color"] {
             height: 10vw;
             width: 20vw;
             border-radius: 1vw;
-            
+
         }
-        .ColorLabel{
+
+        .ColorLabel {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .saveButton{
+
+        .saveButton {
             display: flex;
             justify-content: right;
             align-items: right;
@@ -138,7 +141,7 @@
             return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         }
         function openHome() {
-            window.open('/index.html', '_self');
+            window.open('index.html', '_self');
         }
 
     </script>
