@@ -72,6 +72,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 15vw;
         }
 
         .saveButton {
@@ -91,20 +92,21 @@
             <label for="colorPicker">Téma választás:</label>
             <input type="color" id="colorPicker">
         </div>
-        <div class="saveButton">
-            <button class="submit" onclick="saveColor()">Mentés</button>
-        </div>
+        
     </div>
     <script>
+        colorPicker.addEventListener("input", saveColor, false);
+
         window.onload = function () {
             var color = localStorage.getItem('backgroundColor');
             if (color) {
                 document.body.style.backgroundColor = color;
                 document.getElementById('colorPicker').value = color;
+
                 var colorRgb = hexToRgb(color);
 
                 // Make the color darker
-                var darkerColorRgb = colorRgb.map(value => Math.max(value - 20, 0));
+                var darkerColorRgb = colorRgb.map(value => Math.max(value - 70, 0));
 
                 // Convert the color back to HEX
                 var darkerColorHex = rgbToHex(...darkerColorRgb);
@@ -117,15 +119,17 @@
             localStorage.setItem('backgroundColor', color);
             document.getElementById('colorPicker').value = color;
             document.body.style.backgroundColor = color;
+
             var colorRgb = hexToRgb(color);
 
             // Make the color darker
-            var darkerColorRgb = colorRgb.map(value => Math.max(value - 20, 0));
+            var darkerColorRgb = colorRgb.map(value => Math.max(value - 70, 0));
 
             // Convert the color back to HEX
             var darkerColorHex = rgbToHex(...darkerColorRgb);
 
             document.getElementById('container').style.backgroundColor = darkerColorHex;
+            localStorage.setItem('boxColor', darkerColorHex);
 
         }
         function hexToRgb(hex) {
