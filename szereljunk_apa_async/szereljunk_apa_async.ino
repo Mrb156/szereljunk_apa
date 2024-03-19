@@ -135,6 +135,9 @@ void setup() {
   server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/settings.html", "text/html");
   });
+  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/favicon.ico", "image/x-icon");
+  });
 
   server.on("/updateSpeed", HTTP_GET, [](AsyncWebServerRequest * request) {
     int get_speed = request->getParam("speed")->value().toInt();
