@@ -110,9 +110,24 @@ void la_cucaracha() {
 }
 
 void horn_sound(){
-  tone(BUZZER_PIN, Do, 1000);
-  tone(BUZZER_PIN, Re, 1000);
-  tone(BUZZER_PIN, Mi, 1000);
+  tone(BUZZER_PIN, Do, 100);
+  delay(50);
+  tone(BUZZER_PIN, Re, 100);
+  delay(50);
+  tone(BUZZER_PIN, Mi, 100);
+  delay(50);
+  tone(BUZZER_PIN, Do, 100);
+  delay(50);
+  tone(BUZZER_PIN, Re, 100);
+  delay(50);
+  tone(BUZZER_PIN, Mi, 100);
+  delay(50);
+  tone(BUZZER_PIN, Do, 100);
+  delay(50);
+  tone(BUZZER_PIN, Re, 100);
+  delay(50);
+  tone(BUZZER_PIN, Mi, 100);
+  delay(50);
 }
 
 void init_components() {
