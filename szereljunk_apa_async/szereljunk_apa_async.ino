@@ -38,6 +38,7 @@ Servo servo;
 
 int direction = 2;
 int speed = 175;
+int turn_degree = 90;
 String steer = "straight";
 String cur_steer = "straight";
 
@@ -256,6 +257,12 @@ void setup() {
     request->send(200, "text/plain", "OK");
   });
 
+  server.on("/updateServo", HTTP_GET, [](AsyncWebServerRequest * request) {
+    int get_degree = request->getParam("degree")->value().toInt();
+    turn_degree = get_degree;
+    request->send(200, "text/plain", "OK");
+  });
+
   server.on("/updateDirection", HTTP_GET, [](AsyncWebServerRequest * request) {
     String dir = request->getParam("direction")->value();
     if (dir == "forward") {
@@ -282,15 +289,7 @@ void handleCheckConnection(AsyncWebServerRequest *request) {
   request->send(200, "text/plain", "OK");
 }
 void loop() {
-  if (steer == "left") {
-    turn(180);
-  }
-  else if (steer == "right") {
-    turn(1);
-  }
-  else {
-    turn(90);
-  }
+  turn(turn_degree);
 
   if (direction == 1) {
     go_forward();
