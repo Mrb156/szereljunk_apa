@@ -26,9 +26,9 @@ int Si = 493;
 int DoS = 277;
 int ReS = 311;
 
-int t1= 160;
-int t2= 80;
-int t3= 50;
+int t1 = 160;
+int t2 = 80;
+int t3 = 50;
 
 #define BUZZER_PIN D1
 #define DC_PIN1 D6
@@ -37,10 +37,10 @@ int t3= 50;
 Servo servo;
 
 int direction = 2;
-int speed = 175;
+int forward_speed = 140;
+int backward_speed = 140;
 int turn_degree = 90;
-String steer = "straight";
-String cur_steer = "straight";
+int prev_turn_degree = 90;
 
 void la_cucaracha() {
   tone (BUZZER_PIN, Do);
@@ -63,7 +63,7 @@ void la_cucaracha() {
   delay (t1);
   noTone (BUZZER_PIN);
   delay (t1);
-  
+
   tone (BUZZER_PIN, Do);
   delay (t2);
   noTone (BUZZER_PIN);
@@ -84,7 +84,7 @@ void la_cucaracha() {
   delay (t1);
   noTone (BUZZER_PIN);
   delay (t1);
-  
+
   tone (BUZZER_PIN, Fa);
   delay (t2);
   noTone (BUZZER_PIN);
@@ -115,7 +115,7 @@ void la_cucaracha() {
   delay (t1);
 }
 
-void horn_sound(){
+void horn_sound() {
   tone(BUZZER_PIN, Do, 100);
   delay(50);
   tone(BUZZER_PIN, Re, 100);
@@ -143,20 +143,20 @@ void init_components() {
   delay(100);
   digitalWrite(DC_PIN1, LOW);
   digitalWrite(DC_PIN2, LOW);
-  turn(1);
+  servo.write(1);
   delay(100);
-  turn(180);
+  servo.write(180);
   delay(100);
-  turn(90);
+  servo.write(90);
 }
 void go_forward() {
   digitalWrite(DC_PIN1, LOW);
-  analogWrite(DC_PIN2, speed);
+  analogWrite(DC_PIN2, forward_speed);
 }
 
 void go_backward() {
   digitalWrite(DC_PIN2, LOW);
-  analogWrite(DC_PIN1, speed);
+  analogWrite(DC_PIN1, backward_speed);
 }
 
 void stop_motor() {
@@ -164,8 +164,11 @@ void stop_motor() {
   digitalWrite(DC_PIN2, LOW);
 }
 
-void turn(int degree) {
-  servo.write(degree);
+void turn() {
+  if (turn_degree != prev_turn_degree) {
+    servo.write(turn_degree);
+    prev_turn_degree = turn_degree;
+  }
 }
 
 void forward() {
@@ -180,26 +183,6 @@ void backward() {
   tone(BUZZER_PIN, Do, 100);
 }
 
-void left() {
-  Serial.println("Left");
-  tone(BUZZER_PIN, Re, 100);
-  if (steer == "right") {
-    steer = "straight";
-  } else {
-    steer = "left";
-  }
-}
-
-void right() {
-  Serial.println("Right");
-  tone(BUZZER_PIN, Fa, 100);
-  if (steer == "left") {
-    steer = "straight";
-  } else {
-    steer = "right";
-  }
-}
-
 void stop() {
   Serial.println("stop");
   direction = 2;
@@ -210,7 +193,6 @@ void horn() {
   horn_sound();
 }
 
-String fhtml;
 
 void setup() {
   Serial.begin(9600);
@@ -247,13 +229,19 @@ void setup() {
   server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/settings.html", "text/html");
   });
-  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/favicon.ico", "image/x-icon");
   });
 
-  server.on("/updateSpeed", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/updateForward", HTTP_GET, [](AsyncWebServerRequest * request) {
     int get_speed = request->getParam("speed")->value().toInt();
-    speed = get_speed;
+    forward_speed = get_speed;
+    request->send(200, "text/plain", "OK");
+  });
+
+  server.on("/updateBackward", HTTP_GET, [](AsyncWebServerRequest * request) {
+    int get_speed = request->getParam("speed")->value().toInt();
+    backward_speed = get_speed;
     request->send(200, "text/plain", "OK");
   });
 
@@ -269,10 +257,6 @@ void setup() {
       forward();
     } else if (dir == "backward") {
       backward();
-    } else if (dir == "right") {
-      right();
-    } else if (dir == "left") {
-      left();
     } else if (dir == "stop") {
       stop();
     } else if (dir == "horn") {
@@ -289,7 +273,7 @@ void handleCheckConnection(AsyncWebServerRequest *request) {
   request->send(200, "text/plain", "OK");
 }
 void loop() {
-  turn(turn_degree);
+  turn();
 
   if (direction == 1) {
     go_forward();
