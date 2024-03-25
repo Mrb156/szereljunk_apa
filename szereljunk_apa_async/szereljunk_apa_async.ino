@@ -1,3 +1,8 @@
+//Lábkiosztás:
+//Csipogó: D1
+//DC motor: D5 és D6
+//Servo: D8
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Hash.h>
