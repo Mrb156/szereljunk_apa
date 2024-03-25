@@ -226,11 +226,19 @@ void setup() {
     request->send(SPIFFS, "/index.html", "text/html");
   });
 
+  server.on("/start.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/start.html", "text/html");
+  });
+
   server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/settings.html", "text/html");
   });
   server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(SPIFFS, "/favicon.ico", "image/x-icon");
+  });
+
+  server.on("/approbi.gif", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/approbi.gif", "image/gif");
   });
 
   server.on("/updateForward", HTTP_GET, [](AsyncWebServerRequest * request) {
