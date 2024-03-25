@@ -11,7 +11,7 @@
 #include <FS.h>  // Include the SPIFFS library
 #include <Servo.h>
 
-const char *ssid = "NodeServer";
+const char *ssid = "APP-ROBI-01";
 const char *password = "";
 AsyncWebServer server(80);
 
