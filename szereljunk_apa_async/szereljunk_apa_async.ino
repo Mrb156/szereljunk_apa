@@ -172,40 +172,6 @@ void horn() {
 
 unsigned long previousTime = 0;
 bool stop_it = false;
-void p1(unsigned long currentTime) {
-  // if(previousTime != 0 or previousTime != current_time){
-  //   previousTime = 0;
-  // }
-  // Serial.println("p1");
-  if (stop_it == false) {
-    Serial.println(previousTime);
-    if (currentTime - previousTime <= 2000) {
-      Serial.println("executing");
-
-      digitalWrite(DC_PIN1, LOW);
-      analogWrite(DC_PIN2, 255);
-    } else {
-      previousTime = currentTime;
-    }
-  } else {
-    Serial.println("stopping");
-
-    digitalWrite(DC_PIN1, LOW);
-    analogWrite(DC_PIN2, LOW);
-  }
-  // direction = 10;
-}
-void p2() {
-  //
-}
-void p3() {
-  //
-}
-void p4() {
-  //
-}
-
-
 
 void setup() {
   Serial.begin(9600);
@@ -338,137 +304,137 @@ void loop() {
   } else if (direction == 3 and stop_it == false) {
 
     if (currentTime - previousTime <= 2000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 4000) {
-      Serial.println("backward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, 255);
       analogWrite(DC_PIN2, LOW);
     } else if (currentTime - previousTime <= 5000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 7000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else {
-      Serial.println("stopping");
+      
       stop_it = true;
       previousTime = currentTime;
     }
   } else if (direction == 4 and stop_it == false) {
 
     if (currentTime - previousTime <= 2000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 4000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 6000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 8000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     }
 
     else if (currentTime - previousTime <= 10000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 12000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 14000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     }
 
     else {
-      Serial.println("stopping");
+      
       stop_it = true;
       previousTime = currentTime;
     }
   } else if (direction == 5 and stop_it == false) {
 
     if (currentTime - previousTime <= 4000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 5000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 9000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 13000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else {
-      Serial.println("stopping");
+      
       stop_it = true;
       previousTime = currentTime;
     }
   } else if (direction == 6 and stop_it == false) {
 
     if (currentTime - previousTime <= 2000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 3000) {
-      Serial.println("backward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, LOW);
     } else if (currentTime - previousTime <= 5000) {
-      Serial.println("forward");
+      
       servo.write(180);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 6000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, LOW);
     } else if (currentTime - previousTime <= 8000) {
-      Serial.println("forward");
+      
       servo.write(1);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else if (currentTime - previousTime <= 10000) {
-      Serial.println("forward");
+      
       servo.write(90);
       digitalWrite(DC_PIN1, LOW);
       analogWrite(DC_PIN2, 255);
     } else {
-      Serial.println("stopping");
+      
       stop_it = true;
       previousTime = currentTime;
     }
