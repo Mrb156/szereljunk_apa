@@ -269,7 +269,10 @@
             align-items: center;
             font-size: 5vh;
             font-weight: bold;
+            background: radial-gradient(green, yellow);
+            /* box-shadow: 0px 0px 0px 5px black; */
         }
+        
     </style>
 </head>
 
@@ -290,8 +293,8 @@
     <div class="container">
         <div class="buttons">
             <div class="topBottomRow">
-                <div class="clickable-image" onclick="sendData('p1')">
-                    <div class="programButton">P1</div>
+                <div class="clickable-image" onclick="sendData('p1')" >
+                    <div class="programButton" id="programButton1">P1</div>
                 </div>
                 <div class="control">
                     <div class="clickable-image" onclick="sendData('forward')" style="margin-bottom: 1vh;">
@@ -302,7 +305,7 @@
                     </div>
                 </div>
                 <div class="clickable-image" onclick="sendData('p2')">
-                    <div class="programButton">P2</div>
+                    <div class="programButton" id="programButton2">P2</div>
                 </div>
             </div>
             
@@ -314,7 +317,7 @@
             </div>
             <div class="topBottomRow">
                 <div class="clickable-image" onclick="sendData('p3')">
-                    <div class="programButton" >P3</div>
+                    <div class="programButton" id="programButton3">P3</div>
                 </div>
                 <div class="control">
                     <div class="range">
@@ -325,7 +328,7 @@
                     </div>
                 </div>
                 <div class="clickable-image" onclick="sendData('p4')">
-                    <div class="programButton">P4</div>
+                    <div class="programButton" id="programButton4">P4</div>
                 </div>
             </div>
             <div class="bottom-buttons">
@@ -356,8 +359,15 @@
         var backwardButton = document.getElementById("backwardButton");
         var forwardButton = document.getElementById("forwardButton");
         var stopButton = document.getElementById("stop");
+        var programButton1 = document.getElementById("programButton1");
+        var programButton2 = document.getElementById("programButton2");
+        var programButton3 = document.getElementById("programButton3");
+        var programButton4 = document.getElementById("programButton4");
+
+
         var styleColor = 'white';
         var body = document.body;
+        var activeProgButton = programButton1;
 
 
         let span = document.getElementById("check");
@@ -401,12 +411,67 @@
         forwardButton.addEventListener("click", function () {
             forwardButton.style.setProperty('border-bottom-color', dirColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
+
+            activeProgButton.style.transform = 'scale(1)';
+            activeProgButton.style.background = 'radial-gradient(green, yellow)';
         });
         backwardButton.addEventListener("click", function () {
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', dirColor);
+
+            activeProgButton.style.transform = 'scale(1)';
+            activeProgButton.style.background = 'radial-gradient(green, yellow)';
         });
         stopButton.addEventListener("click", function () {
+            forwardButton.style.setProperty('border-bottom-color', styleColor);
+            backwardButton.style.setProperty('border-top-color', styleColor);
+            
+            activeProgButton.style.transform = 'scale(1)';
+            activeProgButton.style.background = 'radial-gradient(green, yellow)';
+
+        });
+        programButton1.addEventListener("click", function(){
+            if(activeProgButton != programButton1){
+                activeProgButton.style.transform = 'scale(1)';
+                activeProgButton.style.background = 'radial-gradient(green, yellow)';
+                activeProgButton = programButton1;
+            }
+            
+            programButton1.style.transform = 'scale(0.9)';
+            programButton1.style.background = 'radial-gradient(red, yellow)';
+            forwardButton.style.setProperty('border-bottom-color', styleColor);
+            backwardButton.style.setProperty('border-top-color', styleColor);
+        });
+        programButton2.addEventListener("click", function(){
+            if(activeProgButton != programButton2){
+                activeProgButton.style.transform = 'scale(1)';
+                activeProgButton.style.background = 'radial-gradient(green, yellow)';
+                activeProgButton = programButton2;
+            }
+            programButton2.style.transform = 'scale(0.9)';
+            programButton2.style.background = 'radial-gradient(red, yellow)';
+            forwardButton.style.setProperty('border-bottom-color', styleColor);
+            backwardButton.style.setProperty('border-top-color', styleColor);
+        });
+        programButton3.addEventListener("click", function(){
+            if(activeProgButton != programButton3){
+                activeProgButton.style.transform = 'scale(1)';
+                activeProgButton.style.background = 'radial-gradient(green, yellow)';
+                activeProgButton = programButton3;
+            }
+            programButton3.style.transform = 'scale(0.9)';
+            programButton3.style.background = 'radial-gradient(red, yellow)';
+            forwardButton.style.setProperty('border-bottom-color', styleColor);
+            backwardButton.style.setProperty('border-top-color', styleColor);
+        });
+        programButton4.addEventListener("click", function(){
+            if(activeProgButton != programButton4){
+                activeProgButton.style.transform = 'scale(1)';
+                activeProgButton.style.background = 'radial-gradient(green, yellow)';
+                activeProgButton = programButton4;
+            }
+            programButton4.style.transform = 'scale(0.9)';
+            programButton4.style.background = 'radial-gradient(red, yellow)';
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
         });
