@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="hu">
 
+<!-- #TODO: settings credit: robotika Pécs, bytelabs, szereljünk apa, charter informatika -->
+<!-- #BUG: unrecognized html in the chip -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +17,7 @@
             background-color: #1a202f;
             /* height: 100vh; */
             overflow: hidden;
-
+            --styleColor: black
         }
 
         .container {
@@ -69,7 +72,7 @@
             transform: rotate(-90deg);
             border-radius: 2vw;
             background: linear-gradient(to right, rgb(9, 195, 28), yellow, red);
-            border: 1vw solid black;
+            border: 1vw solid var(--styleColor);
             /* overflow:auto; */
             margin: 5vh;
             display: flex;
@@ -93,7 +96,8 @@
             border-left: 15vw solid transparent;
             border-right: 15vw solid transparent;
             border-bottom: 10vw solid transparent;
-            border-bottom-color: black;
+            border-bottom-color: var(--styleColor);
+            border-radius: 100vw;
         }
 
         .triangle-bottom {
@@ -102,8 +106,8 @@
             border-left: 15vw solid transparent;
             border-right: 15vw solid transparent;
             border-top: 10vw solid transparent;
-            border-top-color: black;
-
+            border-top-color: var(--styleColor);
+            border-radius: 100vw;
         }
 
 
@@ -115,7 +119,7 @@
             transform: rotate(90deg);
             border-radius: 2vw;
             background: linear-gradient(to right, rgb(9, 195, 28), yellow, red);
-            border: 1vw solid black;
+            border: 1vw solid var(--styleColor);
             /* overflow:auto; */
             margin: 5vh;
             display: flex;
@@ -141,7 +145,7 @@
             border-radius: 2vw;
             /* background: linear-gradient(to right, rgb(255, 0, 0),rgb(255, 72, 0),rgb(255, 153, 0),rgb(255, 196, 0), rgb(9, 195, 28),rgb(255, 196, 0),rgb(255, 153, 0), rgb(255, 72, 0),rgb(255, 0, 0)); */
             background: linear-gradient(to right, rgb(255, 0, 0), rgb(255, 0, 98), rgb(255, 0, 221), rgb(140, 0, 255), rgb(0, 68, 255), rgb(140, 0, 255), rgb(255, 0, 221), rgb(255, 0, 98), rgb(255, 0, 0));
-            border: 1vw solid black;
+            border: 1vw solid var(--styleColor);
             overflow: hidden;
             margin: 2vw;
         }
@@ -234,6 +238,38 @@
         .home-button:active {
             transform: scale(0.9);
         }
+        .control{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 28vh;
+            /* background-color: yellowgreen; */
+        }
+        .topBottomRow{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 90vw;
+            /* background-color: yellow; */
+
+        }
+        .programButton{
+            color: var(--styleColor);
+            text-align: center;
+            border-radius: 200vw;
+            height: 10vh;
+            width: 10vh;
+            margin-right: 5vw;
+            margin-left: 5vw;
+            border: 0.7vh solid var(--styleColor);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5vh;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -253,25 +289,44 @@
     </div>
     <div class="container">
         <div class="buttons">
-            <div class="clickable-image" onclick="sendData('forward')" style="margin-bottom: 1vh;">
-                <div id="forwardButton" class="triangle-top"></div>
+            <div class="topBottomRow">
+                <div class="clickable-image" onclick="sendData('p1')">
+                    <div class="programButton">P1</div>
+                </div>
+                <div class="control">
+                    <div class="clickable-image" onclick="sendData('forward')" style="margin-bottom: 1vh;">
+                        <div id="forwardButton" class="triangle-top"></div>
+                    </div>
+                    <div class="range">
+                        <input id="forward" class="forward-slider" type="range" min="140" max="255" value="140">
+                    </div>
+                </div>
+                <div class="clickable-image" onclick="sendData('p2')">
+                    <div class="programButton">P2</div>
+                </div>
             </div>
-            <div class="range">
-                <input id="forward" class="forward-slider" type="range" min="140" max="225" value="140">
-            </div>
-
+            
 
             <div class="middle-buttons">
                 <!-- <div class="triangle-left"></div> -->
                 <input id="turn" class="turning-slider" type="range" min="1" max="200" value="100">
                 <!-- <div class="triangle-right"></div> -->
             </div>
-
-            <div class="range">
-                <input id="backward" class="backward-slider" type="range" min="140" max="225" value="140">
-            </div>
-            <div class="clickable-image" onclick="sendData('backward')" style="margin-top: 1vh;">
-                <div id="backwardButton" class="triangle-bottom"></div>
+            <div class="topBottomRow">
+                <div class="clickable-image" onclick="sendData('p3')">
+                    <div class="programButton" >P3</div>
+                </div>
+                <div class="control">
+                    <div class="range">
+                        <input id="backward" class="backward-slider" type="range" min="140" max="255" value="140">
+                    </div>
+                    <div class="clickable-image" onclick="sendData('backward')" style="margin-top: 1vh;">
+                        <div id="backwardButton" class="triangle-bottom"></div>
+                    </div>
+                </div>
+                <div class="clickable-image" onclick="sendData('p4')">
+                    <div class="programButton">P4</div>
+                </div>
             </div>
             <div class="bottom-buttons">
                 <img class="clickable-image"
@@ -302,6 +357,7 @@
         var forwardButton = document.getElementById("forwardButton");
         var stopButton = document.getElementById("stop");
         var styleColor = 'white';
+        var body = document.body;
 
 
         let span = document.getElementById("check");
@@ -324,10 +380,13 @@
                 document.getElementById("heading").style.backgroundColor = boxColor;
                 var colorRgb = hexToRgb(color);
 
-                if (colorRgb.reduce((a, b) => a + b, 0) > 382) {
+                if (colorRgb.reduce((a, b) => a + b, 0) > 150) {
                     styleColor = 'black';
+                    body.style.setProperty('--styleColor', 'black');
+
                 } else {
                     styleColor = 'white';
+                    body.style.setProperty('--styleColor', 'white');
                 }
           
                 backwardButton.style.setProperty('border-top-color', styleColor);

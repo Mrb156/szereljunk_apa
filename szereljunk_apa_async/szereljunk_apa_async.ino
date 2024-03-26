@@ -31,83 +31,83 @@ int t3 = 50;
 #define SERVO_PIN D8
 Servo servo;
 
-int direction = 2;
+int direction = 10;
 int forward_speed = 140;
 int backward_speed = 140;
 int turn_degree = 90;
 int prev_turn_degree = 90;
 
 void la_cucaracha() {
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Fa);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t1);
-  tone (BUZZER_PIN, La);
-  delay (t1);
-  noTone (BUZZER_PIN);
-  delay (t1);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Fa);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t1);
+  tone(BUZZER_PIN, La);
+  delay(t1);
+  noTone(BUZZER_PIN);
+  delay(t1);
 
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Do);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Fa);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t1);
-  tone (BUZZER_PIN, La);
-  delay (t1);
-  noTone (BUZZER_PIN);
-  delay (t1);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Do);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Fa);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t1);
+  tone(BUZZER_PIN, La);
+  delay(t1);
+  noTone(BUZZER_PIN);
+  delay(t1);
 
-  tone (BUZZER_PIN, Fa);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Fa);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Mi);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Mi);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Re);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Re);
-  delay (t2);
-  noTone (BUZZER_PIN);
-  delay (t3);
-  tone (BUZZER_PIN, Do);
-  delay (t1);
-  noTone (BUZZER_PIN);
-  delay (t1);
+  tone(BUZZER_PIN, Fa);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Fa);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Mi);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Mi);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Re);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Re);
+  delay(t2);
+  noTone(BUZZER_PIN);
+  delay(t3);
+  tone(BUZZER_PIN, Do);
+  delay(t1);
+  noTone(BUZZER_PIN);
+  delay(t1);
 }
 
 void horn_sound() {
@@ -166,27 +166,45 @@ void turn() {
   }
 }
 
-void forward() {
-  Serial.println("Forward");
-  direction = 1;
-  tone(BUZZER_PIN, Mi, 100);
-}
-
-void backward() {
-  Serial.println("Backward");
-  direction = 0;
-  tone(BUZZER_PIN, Do, 100);
-}
-
-void stop() {
-  Serial.println("stop");
-  direction = 2;
-  tone(BUZZER_PIN, La, 100);
-}
 void horn() {
-  Serial.println("horn");
   horn_sound();
 }
+
+unsigned long previousTime = 0;
+bool stop_it = false;
+void p1(unsigned long currentTime) {
+  // if(previousTime != 0 or previousTime != current_time){
+  //   previousTime = 0;
+  // }
+  // Serial.println("p1");
+  if (stop_it == false) {
+    Serial.println(previousTime);
+    if (currentTime - previousTime <= 2000) {
+      Serial.println("executing");
+
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else {
+      previousTime = currentTime;
+    }
+  } else {
+    Serial.println("stopping");
+
+    digitalWrite(DC_PIN1, LOW);
+    analogWrite(DC_PIN2, LOW);
+  }
+  // direction = 10;
+}
+void p2() {
+  //
+}
+void p3() {
+  //
+}
+void p4() {
+  //
+}
+
 
 
 void setup() {
@@ -210,6 +228,8 @@ void setup() {
 
   init_components();
 
+
+
   //Initialize File System
   if (SPIFFS.begin()) {
     Serial.println("SPIFFS Initialize....ok");
@@ -217,53 +237,77 @@ void setup() {
     Serial.println("SPIFFS Initialization...failed");
   }
 
-  server.on("/index.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+
+  server.on("/index.html", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/index.html", "text/html");
   });
 
-  server.on("/start.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/start.html", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/start.html", "text/html");
   });
 
-  server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/settings.html", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/settings.html", "text/html");
   });
-  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/favicon.ico", "image/x-icon");
   });
 
-  server.on("/approbi.gif", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/approbi.gif", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(SPIFFS, "/approbi.gif", "image/gif");
   });
 
-  server.on("/updateForward", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/updateForward", HTTP_GET, [](AsyncWebServerRequest *request) {
     int get_speed = request->getParam("speed")->value().toInt();
     forward_speed = get_speed;
     request->send(200, "text/plain", "OK");
   });
 
-  server.on("/updateBackward", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/updateBackward", HTTP_GET, [](AsyncWebServerRequest *request) {
     int get_speed = request->getParam("speed")->value().toInt();
     backward_speed = get_speed;
     request->send(200, "text/plain", "OK");
   });
 
-  server.on("/updateServo", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/updateServo", HTTP_GET, [](AsyncWebServerRequest *request) {
     int get_degree = request->getParam("degree")->value().toInt();
     turn_degree = get_degree;
     request->send(200, "text/plain", "OK");
   });
 
-  server.on("/updateDirection", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/updateDirection", HTTP_GET, [](AsyncWebServerRequest *request) {
     String dir = request->getParam("direction")->value();
     if (dir == "forward") {
-      forward();
+      direction = 1;
+      tone(BUZZER_PIN, Mi, 100);
+      stop_it = false;
     } else if (dir == "backward") {
-      backward();
+      direction = 0;
+      tone(BUZZER_PIN, Mi, 100);
+      stop_it = false;
     } else if (dir == "stop") {
-      stop();
+      stop_motor();
+      direction = 2;
+      tone(BUZZER_PIN, Mi, 100);
+      stop_it = true;
     } else if (dir == "horn") {
       horn();
+    } else if (dir == "p1") {
+      tone(BUZZER_PIN, La, 100);
+      stop_it = false;
+      direction = 3;
+    } else if (dir == "p2") {
+      tone(BUZZER_PIN, La, 100);
+      stop_it = false;
+      direction = 4;
+    } else if (dir == "p3") {
+      tone(BUZZER_PIN, La, 100);
+      stop_it = false;
+      direction = 5;
+    } else if (dir == "p4") {
+      tone(BUZZER_PIN, La, 100);
+      stop_it = false;
+      direction = 6;
     }
     request->send(200, "text/plain", "OK");
   });
@@ -271,18 +315,171 @@ void setup() {
   server.on("/check_connection", HTTP_GET, handleCheckConnection);
 
   server.begin();
+  previousTime = 0;
 }
 void handleCheckConnection(AsyncWebServerRequest *request) {
   request->send(200, "text/plain", "OK");
 }
 void loop() {
-  turn();
+  unsigned long currentTime = millis();
 
   if (direction == 1) {
+    turn();
+
     go_forward();
+    previousTime = currentTime;
+
   } else if (direction == 0) {
+    turn();
+
     go_backward();
-  } else {
+    previousTime = currentTime;
+
+  } else if (direction == 3 and stop_it == false) {
+
+    if (currentTime - previousTime <= 2000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 4000) {
+      Serial.println("backward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, 255);
+      analogWrite(DC_PIN2, LOW);
+    } else if (currentTime - previousTime <= 5000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 7000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else {
+      Serial.println("stopping");
+      stop_it = true;
+      previousTime = currentTime;
+    }
+  } else if (direction == 4 and stop_it == false) {
+
+    if (currentTime - previousTime <= 2000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 4000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 6000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 8000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    }
+
+    else if (currentTime - previousTime <= 10000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 12000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 14000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    }
+
+    else {
+      Serial.println("stopping");
+      stop_it = true;
+      previousTime = currentTime;
+    }
+  } else if (direction == 5 and stop_it == false) {
+
+    if (currentTime - previousTime <= 4000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 5000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 9000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 13000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else {
+      Serial.println("stopping");
+      stop_it = true;
+      previousTime = currentTime;
+    }
+  } else if (direction == 6 and stop_it == false) {
+
+    if (currentTime - previousTime <= 2000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 3000) {
+      Serial.println("backward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, LOW);
+    } else if (currentTime - previousTime <= 5000) {
+      Serial.println("forward");
+      servo.write(180);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 6000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, LOW);
+    } else if (currentTime - previousTime <= 8000) {
+      Serial.println("forward");
+      servo.write(1);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else if (currentTime - previousTime <= 10000) {
+      Serial.println("forward");
+      servo.write(90);
+      digitalWrite(DC_PIN1, LOW);
+      analogWrite(DC_PIN2, 255);
+    } else {
+      Serial.println("stopping");
+      stop_it = true;
+      previousTime = currentTime;
+    }
+  }
+
+  else {
+    turn();
+
     stop_motor();
+    previousTime = currentTime;
+
+    stop_it = true;
   }
 }
