@@ -1,3 +1,8 @@
+//Lábkiosztás:
+//Csipogó: D1
+//DC motor: D5 és D6
+//Servo: D8
+
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <Hash.h>
@@ -34,8 +39,8 @@ Servo servo;
 int direction = 10;
 int forward_speed = 140;
 int backward_speed = 140;
-int turn_degree = 90;
-int prev_turn_degree = 90;
+int turn_degree = 105;
+int prev_turn_degree = 105;
 
 void la_cucaracha() {
   tone(BUZZER_PIN, Do);
@@ -142,7 +147,7 @@ void init_components() {
   delay(100);
   servo.write(180);
   delay(100);
-  servo.write(90);
+  servo.write(turn_degree);
 }
 void go_forward() {
   digitalWrite(DC_PIN1, LOW);
