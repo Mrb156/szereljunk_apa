@@ -238,7 +238,8 @@
         .home-button:active {
             transform: scale(0.9);
         }
-        .control{
+
+        .control {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -246,7 +247,8 @@
             height: 28vh;
             /* background-color: yellowgreen; */
         }
-        .topBottomRow{
+
+        .topBottomRow {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -255,7 +257,8 @@
             /* background-color: yellow; */
 
         }
-        .programButton{
+
+        .programButton {
             color: var(--styleColor);
             text-align: center;
             border-radius: 200vw;
@@ -272,7 +275,6 @@
             background: radial-gradient(green, yellow);
             /* box-shadow: 0px 0px 0px 5px black; */
         }
-        
     </style>
 </head>
 
@@ -293,7 +295,7 @@
     <div class="container">
         <div class="buttons">
             <div class="topBottomRow">
-                <div class="clickable-image" onclick="sendData('p1')" >
+                <div class="clickable-image" onclick="sendData('p1')">
                     <div class="programButton" id="programButton1">P1</div>
                 </div>
                 <div class="control">
@@ -308,12 +310,10 @@
                     <div class="programButton" id="programButton2">P2</div>
                 </div>
             </div>
-            
+
 
             <div class="middle-buttons">
-                <!-- <div class="triangle-left"></div> -->
-                <input id="turn" class="turning-slider" type="range" min="1" max="200" value="100">
-                <!-- <div class="triangle-right"></div> -->
+                <input id="turn" class="turning-slider" type="range" min="5" max="205" value="102">
             </div>
             <div class="topBottomRow">
                 <div class="clickable-image" onclick="sendData('p3')">
@@ -398,16 +398,16 @@
                     styleColor = 'white';
                     body.style.setProperty('--styleColor', 'white');
                 }
-          
+
                 backwardButton.style.setProperty('border-top-color', styleColor);
                 forwardButton.style.setProperty('border-bottom-color', styleColor);
-         
+
             }
         }
         setInterval(checkConnectionStatus, 1000);
         var xhr = new XMLHttpRequest();
         var dirColor = 'rgb(200, 0, 0)';
-       
+
         forwardButton.addEventListener("click", function () {
             forwardButton.style.setProperty('border-bottom-color', dirColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
@@ -425,25 +425,25 @@
         stopButton.addEventListener("click", function () {
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
-            
+
             activeProgButton.style.transform = 'scale(1)';
             activeProgButton.style.background = 'radial-gradient(green, yellow)';
 
         });
-        programButton1.addEventListener("click", function(){
-            if(activeProgButton != programButton1){
+        programButton1.addEventListener("click", function () {
+            if (activeProgButton != programButton1) {
                 activeProgButton.style.transform = 'scale(1)';
                 activeProgButton.style.background = 'radial-gradient(green, yellow)';
                 activeProgButton = programButton1;
             }
-            
+
             programButton1.style.transform = 'scale(0.9)';
             programButton1.style.background = 'radial-gradient(red, yellow)';
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
         });
-        programButton2.addEventListener("click", function(){
-            if(activeProgButton != programButton2){
+        programButton2.addEventListener("click", function () {
+            if (activeProgButton != programButton2) {
                 activeProgButton.style.transform = 'scale(1)';
                 activeProgButton.style.background = 'radial-gradient(green, yellow)';
                 activeProgButton = programButton2;
@@ -453,8 +453,8 @@
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
         });
-        programButton3.addEventListener("click", function(){
-            if(activeProgButton != programButton3){
+        programButton3.addEventListener("click", function () {
+            if (activeProgButton != programButton3) {
                 activeProgButton.style.transform = 'scale(1)';
                 activeProgButton.style.background = 'radial-gradient(green, yellow)';
                 activeProgButton = programButton3;
@@ -464,8 +464,8 @@
             forwardButton.style.setProperty('border-bottom-color', styleColor);
             backwardButton.style.setProperty('border-top-color', styleColor);
         });
-        programButton4.addEventListener("click", function(){
-            if(activeProgButton != programButton4){
+        programButton4.addEventListener("click", function () {
+            if (activeProgButton != programButton4) {
                 activeProgButton.style.transform = 'scale(1)';
                 activeProgButton.style.background = 'radial-gradient(green, yellow)';
                 activeProgButton = programButton4;
@@ -481,19 +481,19 @@
             var leftArrow = 'polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%)'
             var rightArrow = 'polygon(0% 0%, 25% 50%, 0% 100%, 75% 100%, 100% 50%, 75% 0%)'
 
-            if (turn.value >= 90 && turn.value <= 110) {
-                turn.value = 100;
-                xhr.open("GET", "http://192.168.4.1/updateServo?degree=" + 90, true);
+            if (turn.value >= 95 && turn.value <= 115) {
+                turn.value = 102;
+                xhr.open("GET", "http://192.168.4.1/updateServo?degree=" + 105, true);
                 xhr.send();
                 turn.style.setProperty('--path', straightArrow);
             }
-            else if (turn.value < 90) {
+            else if (turn.value < 95) {
                 xhr.open("GET", "http://192.168.4.1/updateServo?degree=" + turn.value, true);
                 xhr.send();
                 turn.style.setProperty('--path', leftArrow);
 
             }
-            else if (turn.value > 110) {
+            else if (turn.value > 115) {
                 xhr.open("GET", "http://192.168.4.1/updateServo?degree=" + (turn.value - 19), true);
                 xhr.send();
                 turn.style.setProperty('--path', rightArrow);
